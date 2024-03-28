@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOL信息查询</title>
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+        text-align: center;
+    }
+
+    h1 {
+        color: #333;
+    }
+
+    label {
+        margin-top: 20px;
+        display: block;
+        font-size: 18px;
+    }
+
+    input[type="text"] {
+        padding: 8px;
+        width: 250px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+
+    button {
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-bottom: 20px;
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
+
+    #qqResult, #phoneInfo {
+        margin-top: 20px;
+        padding: 10px;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        text-align: left;
+    }
+</style>
+<body>
+    <h1>LOL信息查询</h1>
+    <label for="lolName">请输入LOL昵称或QQ：</label>
+    <input type="text" id="lolName" size="30">
+    <button onclick="queryInfo()">查询</button>
+    <div id="qqResult"></div>
+    <button id="copyQQButton">复制QQ号</button>
+    <div id="phoneInfo"></div>
+    <button id="copyPhoneButton">复制手机号</button>
+
+    <script>
+        // 创建一个函数来查询信息
+        function queryInfo() {
+            var lolName = document.getElementById('lolName').value;
+
+            // 查询LOL信息
+            var url_lol = "https://zy.xywlapi.cc/lolname";
+            var params_lol = { "name": lolName };
+
+            fetch(url_lol + '?' + new URLSearchParams(params_lol))
+                .then(response => response.json())
+                .then(data_lol => {
+                    if (data_lol.status === 200) {
+                        var qq = data_lol.qq;
+                        var gameName = data_lol.name;
+                        var daqu = data_lol.daqu;
+                        document.getElementById('qqResult').innerText = "QQ号: " + qq + "\n游戏名: " + gameName + "\n游戏大区: " + daqu;
+
+                        // 设置复制QQ号按钮
+                        document.getElementById('copyQQButton').addEventListener('click', function() {
+                            copyToClipboard(qq);
+                        });
+
+                        // 查询QQ绑定的电话号码
+                        var url_qq = "https://zy.xywlapi.cc/qqapi";
+                        var params_qq = { "qq": qq };
+
+                        fetch(url_qq + '?' + new URLSearchParams(params_qq))
+                            .then(response => response.json())
+                            .then(data_qq => {
+                                if (data_qq.status === 200) {
+                                    var phone = data_qq.phone;
+                                    var phoneDiqu = data_qq.phonediqu;
+                                    document.getElementById('phoneInfo').innerText = "绑定号码: " + phone + "\n号码地区: " + phoneDiqu;
+
+                                    // 设置复制手机号按钮
+                                    document.getElementById('copyPhoneButton').addEventListener('click', function() {
+                                        copyToClipboard(phone);
+                                    });
+                                } else {
+                                    document.getElementById('phoneInfo').innerText = "QQ查询失败: " + data_qq.message;
+                                }
+                            })
+                            .catch(error => {
+                                document.getElementById('phoneInfo').innerText = "QQ查询出错: " + error;
+                            });
+                    } else {
+                        document.getElementById('qqResult').innerText = "LOL查询失败: " + data_lol.message;
+                    }
+                })
+                .catch(error => {
+                    document.getElementById('qqResult').innerText = "LOL查询出错: " + error;
+                });
+        }
+
+        // 复制文本到剪贴板
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text);
+        }
+    </script>
+</body>
+</html>
