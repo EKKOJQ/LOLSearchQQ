@@ -17,10 +17,10 @@ def query_info():
             game_name = data_lol["name"]
             daqu = data_lol["daqu"]
             qq_result_label.config(text=f"QQ号: {qq}\n游戏名: {game_name}\n游戏大区: {daqu}")
-            
+
             # 设置复制QQ号按钮
             copy_qq_button.config(command=lambda: copy_to_clipboard(qq))
-            
+
             # 查询QQ信息
             url_qq = "https://zy.xywlapi.cc/qqapi"
             params_qq = {"qq": qq}
@@ -36,18 +36,43 @@ def query_info():
 
                     # 设置复制手机号按钮
                     copy_phone_button.config(command=lambda: copy_to_clipboard(phone))
-                    
+
                 else:
                     phone_label.config(text=f"QQ查询失败: {data_qq['message']}")
 
             except Exception as e:
                 phone_label.config(text=f"QQ查询出错: {str(e)}")
-                
+
         else:
             qq_result_label.config(text=f"LOL查询失败: {data_lol['message']}")
 
     except Exception as e:
         qq_result_label.config(text=f"LOL查询出错: {str(e)}")
+
+def query_phone():
+    qq_number = qq_entry.get()
+
+    # 查询QQ信息
+    url_qq = "https://zy.xywlapi.cc/qqapi"
+    params_qq = {"qq": qq_number}
+
+    try:
+        response_qq = requests.get(url_qq, params=params_qq)
+        data_qq = response_qq.json()
+
+        if data_qq["status"] == 200:
+            phone = data_qq["phone"]
+            phonediqu = data_qq["phonediqu"]
+            phone_result_label.config(text=f"手机号码: {phone}\n号码地区: {phonediqu}")
+
+            # 设置复制手机号按钮
+            copy_phone_button_2.config(command=lambda: copy_to_clipboard(phone))
+
+        else:
+            phone_result_label.config(text=f"QQ查询失败: {data_qq['message']}")
+
+    except Exception as e:
+        phone_result_label.config(text=f"QQ查询出错: {str(e)}")
 
 def copy_to_clipboard(text):
     root.clipboard_clear()
@@ -55,18 +80,19 @@ def copy_to_clipboard(text):
 
 root = tk.Tk()
 root.title("信息查询")
-root.geometry("600x600")  # 修改窗口大小
+root.geometry("600x780")  # 修改窗口大小
 
-title_label = tk.Label(root, text="LOL信息查询", font=("Arial", 24, "bold"))  # 调整标题字体大小
+title_label = tk.Label(root, text="信息查询", font=("Arial", 24, "bold"))  # 调整标题字体大小
 title_label.pack(pady=10)
 
+# 查询LOL信息部分
 lol_label = tk.Label(root, text="请输入LOL昵称：", font=("Arial", 16))  # 调整标签字体大小
 lol_label.pack()
 
 lol_entry = tk.Entry(root, font=("Arial", 16), width=30)  # 调整输入框字体大小
 lol_entry.pack(pady=5)
 
-query_button = tk.Button(root, text="查询", font=("Arial", 16), command=query_info)  # 调整按钮字体大小
+query_button = tk.Button(root, text="查询LOL信息", font=("Arial", 16), command=query_info)  # 调整按钮字体大小
 query_button.pack(pady=10)
 
 qq_result_label = tk.Label(root, text="", font=("Arial", 16))  # 调整结果显示字体大小
@@ -80,6 +106,22 @@ phone_label.pack(pady=10)
 
 copy_phone_button = tk.Button(root, text="复制手机号", font=("Arial", 16))  # 调整按钮字体大小
 copy_phone_button.pack(pady=5)
+
+# 查询手机号码部分
+qq_label = tk.Label(root, text="请输入QQ号码：", font=("Arial", 16))  # 调整标签字体大小
+qq_label.pack()
+
+qq_entry = tk.Entry(root, font=("Arial", 16), width=30)  # 调整输入框字体大小
+qq_entry.pack(pady=5)
+
+query_phone_button = tk.Button(root, text="查询手机号码", font=("Arial", 16), command=query_phone)  # 调整按钮字体大小
+query_phone_button.pack(pady=10)
+
+phone_result_label = tk.Label(root, text="", font=("Arial", 16))  # 调整结果显示字体大小
+phone_result_label.pack(pady=10)
+
+copy_phone_button_2 = tk.Button(root, text="复制手机号", font=("Arial", 16))  # 调整按钮字体大小
+copy_phone_button_2.pack(pady=5)
 
 author_label = tk.Label(root, text="Powered by EKKOJQ", font=("Arial", 14))  # 调整作者信息字体大小
 author_label.pack(side=tk.BOTTOM, pady=10)
