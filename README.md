@@ -13,7 +13,8 @@
 4. 程序将会显示查询结果，包括QQ号、游戏名、游戏大区、绑定号码和号码地区。
 
 5. 点击“复制QQ号”按钮可以复制查询到的QQ号到剪贴板，点击“复制手机号”按钮可以复制绑定手机号到剪贴板。
-![image](https://github.com/EKKOJQ/LOLSearchQQ/assets/97377143/561da449-30d6-4008-9bbc-6f67dc16f98a)
+![image](https://github.com/EKKOJQ/LOLSearchQQ/assets/97377143/2712036d-746a-40dc-b1ad-288cb6eae885)
+
 ## 注意事项
 
 - 确保网络连接正常，否则无法查询到相关信息。
