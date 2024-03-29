@@ -39,6 +39,7 @@
 5. 用户可以点击“复制QQ号”按钮将QQ号复制到剪贴板。
 6. 如果查询成功，还会显示QQ绑定的电话号码以及号码所属地区。
 7. 用户可以点击“复制手机号”按钮将电话号码复制到剪贴板。
+![image](https://github.com/EKKOJQ/LOLSearchQQ/assets/97377143/914a5a2e-e3de-496b-9c3f-dbae6ef40e19)
 
 ## 技术实现
 
