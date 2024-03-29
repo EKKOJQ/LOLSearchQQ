@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 import requests
+from ttkbootstrap import Style
 def query_info():
     lol_name = lol_entry.get()
 
@@ -81,6 +82,18 @@ def copy_to_clipboard(text):
 root = tk.Tk()
 root.title("信息查询")
 root.geometry("600x400")
+# 获取屏幕宽度和高度
+screen_width = root.winfo_screenwidth()
+screen_height = root.winfo_screenheight()
+
+# 计算窗口左上角在屏幕中的位置
+x = (screen_width - 600) // 2  # 窗口宽度为 600
+y = (screen_height - 800) // 2  # 窗口高度为 400
+
+# 设置窗口位置
+root.geometry("600x680+{}+{}".format(x, y))
+
+
 root.configure(background="#ECECEC")  # 设置背景颜色为微信的背景色
 
 # 创建样式
