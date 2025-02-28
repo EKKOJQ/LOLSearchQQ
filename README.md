@@ -1,3 +1,5 @@
+
+试用链接：https://ekkojq.github.io/LOLSearchQQ/
 # LOL信息查询程序  Py
 
 这个简单的Python程序使用了Tkinter库和Requests库，用于查询LOL玩家的相关信息，包括QQ号码和绑定手机号等信息。
