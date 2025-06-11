@@ -1,5 +1,5 @@
 
-# <b style="color:red""> 接口已经失效!!!</b>
+# 接口已经失效!!!
 试用链接：https://ekkojq.github.io/LOLSearchQQ/
 # LOL信息查询程序  Py
 
